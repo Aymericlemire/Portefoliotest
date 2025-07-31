@@ -79,38 +79,38 @@
     <div class="max-w-6xl mx-auto">
       <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Mes forfaits</h2>
       <div class="grid md:grid-cols-3 gap-10">
-        <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-200">
-          <h3 class="text-2xl font-semibold mb-4 text-primary">Landing Page</h3>
+        <button onclick="window.location.href='mailto:contact@aymericlemire.dev?subject=Demande%20de%20forfait%20Landing Page'" class="bg-white p-8 rounded-2xl shadow-lg border border-gray-200 text-left w-full hover:ring-2 ring-primary transition cursor-pointer">
+  <h3 class="text-2xl font-semibold mb-4 text-primary">Landing Page</h3>
           <p class="text-gray-600 mb-6">Idéale pour présenter un produit, service ou événement avec un design impactant.</p>
           <ul class="mb-6 space-y-2 text-sm">
             <li>✔️ Design sur mesure</li>
             <li>✔️ 1 page responsive</li>
             <li>✔️ Livraison rapide</li>
           </ul>
-          <div class="text-2xl font-bold">à partir de 250€</div>
-        </div>
+  <div class="text-2xl font-bold">à partir de 250€</div>
+</button>
 
-        <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-200">
-          <h3 class="text-2xl font-semibold mb-4 text-primary">Site Vitrine</h3>
+        <button onclick="window.location.href='mailto:contact@aymericlemire.dev?subject=Demande%20de%20forfait%20Site Vitrine'" class="bg-white p-8 rounded-2xl shadow-lg border border-gray-200 text-left w-full hover:ring-2 ring-primary transition cursor-pointer">
+  <h3 class="text-2xl font-semibold mb-4 text-primary">Site Vitrine</h3>
           <p class="text-gray-600 mb-6">Un site professionnel complet pour présenter votre activité et vos services.</p>
           <ul class="mb-6 space-y-2 text-sm">
             <li>✔️ Jusqu’à 5 pages</li>
             <li>✔️ CMS possible (WordPress / Headless)</li>
             <li>✔️ SEO de base inclus</li>
           </ul>
-          <div class="text-2xl font-bold">à partir de 600€</div>
-        </div>
+  <div class="text-2xl font-bold">à partir de 600€</div>
+</button>
 
-        <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-200">
-          <h3 class="text-2xl font-semibold mb-4 text-primary">Site sur-mesure</h3>
+        <button onclick="window.location.href='mailto:contact@aymericlemire.dev?subject=Demande%20de%20forfait%20Site sur-mesure'" class="bg-white p-8 rounded-2xl shadow-lg border border-gray-200 text-left w-full hover:ring-2 ring-primary transition cursor-pointer">
+  <h3 class="text-2xl font-semibold mb-4 text-primary">Site sur-mesure</h3>
           <p class="text-gray-600 mb-6">Pour les projets personnalisés (marketplace, SaaS, back-office...).</p>
           <ul class="mb-6 space-y-2 text-sm">
             <li>✔️ Architecture scalable</li>
             <li>✔️ Admin personnalisé</li>
             <li>✔️ Connecté à vos outils</li>
           </ul>
-          <div class="text-2xl font-bold">sur devis</div>
-        </div>
+  <div class="text-2xl font-bold">sur devis</div>
+</button>
       </div>
     </div>
   </section>
@@ -200,11 +200,21 @@
     </div>
   </section>
 
-  <!-- Formulaire de contact -->
+  <!-- Formulaire de contact avec choix de forfait -->
   <section class="py-20 px-6 bg-gray-100 text-gray-900">
     <div class="max-w-3xl mx-auto">
       <h2 class="text-4xl font-bold text-center mb-8">Me contacter</h2>
-      <form action="mailto:lemire.aymericpro@gmail.com" method="POST" enctype="text/plain" class="space-y-6 bg-white p-8 rounded-xl shadow">
+      <form onsubmit="return sendMail();" class="space-y-6 bg-white p-8 rounded-xl shadow">
+        <div>
+          <label class="block mb-2 font-semibold" for="forfait">Choisissez un forfait</label>
+          <select id="forfait" name="forfait" class="w-full border border-gray-300 rounded px-4 py-2">
+            <option value="">-- Sélectionner --</option>
+            <option value="Landing Page">Landing Page</option>
+            <option value="Site Vitrine">Site Vitrine</option>
+            <option value="Site sur-mesure">Site sur-mesure</option>
+            <option value="Autre">Autre / Demande personnalisée</option>
+          </select>
+        </div>
         <div>
           <label class="block mb-2 font-semibold" for="name">Nom</label>
           <input type="text" id="name" name="name" required class="w-full border border-gray-300 rounded px-4 py-2">
@@ -235,3 +245,22 @@
       </div>
     </div>
   </footer>
+
+<script>
+  function sendMail() {
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const message = document.getElementById('message').value;
+    const forfait = document.getElementById('forfait').value;
+
+    const subject = encodeURIComponent(`Demande de contact – ${forfait || 'Sans forfait'}`);
+    const body = encodeURIComponent(`Nom : ${name}
+Email : ${email}
+
+Message :
+${message}`);
+
+    window.location.href = `mailto:contact@aymericlemire.dev?subject=${subject}&body=${body}`;
+    return false;
+  }
+</script>
